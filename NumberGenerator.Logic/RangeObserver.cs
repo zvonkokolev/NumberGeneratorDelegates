@@ -72,7 +72,7 @@ namespace NumberGenerator.Logic
 				NumbersOfHitsToWaitFor--;
 				if(NumbersOfHitsToWaitFor == 0)
 				{
-					_numberGenerator.NextNumberHandlerChanged -= this.OnNextNumber;
+					_numberGenerator.NextNumberHandlerChanged -= OnNextNumber;
 				}
 			}
 			base.OnNextNumber(number);

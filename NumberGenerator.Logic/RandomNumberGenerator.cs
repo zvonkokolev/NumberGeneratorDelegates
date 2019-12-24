@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static NumberGenerator.Logic.IObservable;
 
 namespace NumberGenerator.Logic
 {
+	public delegate void NextNumberHandler(int number);
 	/// <summary>
 	/// Implementiert einen Nummern-Generator, welcher Zufallszahlen generiert.
 	/// Es können sich Beobachter registrieren, welche über eine neu generierte Zufallszahl benachrichtigt werden.
@@ -25,7 +27,7 @@ namespace NumberGenerator.Logic
 		#region Fields
 		private readonly int _delay;
 		private readonly int Seed;
-		public delegate void NextNumberHandler(int number);
+		private NextNumberHandler _nextNumberHandlerChanged = null;
 		#endregion
 
 		#region Constructors
@@ -59,7 +61,21 @@ namespace NumberGenerator.Logic
 		#endregion
 
 		#region Properties
-		public IObservable.NextNumberHandler NextNumberHandlerChanged { get; set; }
+		public NextNumberHandler NextNumberHandlerChanged
+		{
+			get
+			{
+				return _nextNumberHandlerChanged;
+			}
+			set
+			{
+				if (_nextNumberHandlerChanged == null && value == null)
+				{
+					throw new ArgumentNullException();
+				}
+				_nextNumberHandlerChanged = value;
+			}
+		}
 		#endregion
 
 		#region Methods

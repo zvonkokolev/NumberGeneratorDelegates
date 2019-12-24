@@ -32,7 +32,7 @@ namespace NumberGenerator.Logic
 			}
 			_numberGenerator = numberGenerator ?? throw new ArgumentNullException($"Das war keine Zahlengenerator");
 			CountOfNumbersToWaitFor = countOfNumbersToWaitFor;
-			_numberGenerator.NextNumberHandlerChanged += this.OnNextNumber;
+			_numberGenerator.NextNumberHandlerChanged += OnNextNumber;
 		}
 
 		#endregion
@@ -52,7 +52,7 @@ namespace NumberGenerator.Logic
 			if (CountOfNumbersReceived >= CountOfNumbersToWaitFor)
 			{
 				Console.ForegroundColor = ConsoleColor.Red;
-				Console.WriteLine($"   >> {this.GetType().Name}: Received '{CountOfNumbersReceived}' of '{CountOfNumbersToWaitFor}' => I am not interested in new numbers anymore => Detach().");
+				Console.WriteLine($"   >> {GetType().Name}: Received '{CountOfNumbersReceived}' of '{CountOfNumbersToWaitFor}' => I am not interested in new numbers anymore => Detach().");
 				Console.ResetColor();
 				DetachFromNumberGenerator();
 			}
@@ -67,7 +67,11 @@ namespace NumberGenerator.Logic
 
 		protected void DetachFromNumberGenerator()
 		{
-			_numberGenerator.NextNumberHandlerChanged -= this.OnNextNumber;
+			if (_numberGenerator.NextNumberHandlerChanged == null)
+			{
+				throw new InvalidOperationException();
+			}
+			_numberGenerator.NextNumberHandlerChanged -= OnNextNumber;
 		}
 
 		#endregion

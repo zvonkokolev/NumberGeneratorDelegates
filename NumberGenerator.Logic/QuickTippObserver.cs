@@ -27,7 +27,7 @@ namespace NumberGenerator.Logic
 		public QuickTippObserver(IObservable numberGenerator)
 		{
 			_numberGenerator = numberGenerator ?? throw new ArgumentNullException($"{nameof(numberGenerator)} war Null");
-			_numberGenerator.NextNumberHandlerChanged += this.OnNextNumber;
+			_numberGenerator.NextNumberHandlerChanged += OnNextNumber;
 		}
 
 		#endregion
@@ -65,7 +65,7 @@ namespace NumberGenerator.Logic
 
 		private void DetachFromNumberGenerator()
 		{
-			_numberGenerator.NextNumberHandlerChanged -= this.OnNextNumber;
+			_numberGenerator.NextNumberHandlerChanged -= OnNextNumber;
 		}
 
 		#endregion

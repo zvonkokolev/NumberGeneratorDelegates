@@ -65,7 +65,7 @@ namespace NumberGenerator.Logic
 			Avg = Sum / CountOfNumbersToWaitFor;
 			if(Counter-- == 0)
 			{
-				_numberGenerator.NextNumberHandlerChanged -= this.OnNextNumber;
+				_numberGenerator.NextNumberHandlerChanged -= OnNextNumber;
 			}
 			base.OnNextNumber(number);
 		}
